@@ -135,6 +135,13 @@ h1{
 
     position:relative;
     overflow:hidden;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-family: inherit;
+    outline: none;
 }
 
 .btn::before{
@@ -157,13 +164,104 @@ h1{
 
 .btn:hover{
     transform:translateY(-3px);
-
     background:var(--accent-soft);
-
     border-color:rgba(56,189,248,0.4);
+    box-shadow: 0 10px 25px rgba(56,189,248,0.15);
+}
 
-    box-shadow:
-        0 10px 25px rgba(56,189,248,0.15);
+/* Akordeon (Açılır Menü) Stilleri */
+
+.accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.accordion-toggle {
+    justify-content: space-between;
+}
+
+.accordion-toggle .chevron {
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+
+.accordion.active > .accordion-toggle .chevron {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    display: none;
+}
+
+.accordion.active > .accordion-content {
+    display: block;
+    animation: fadeInDown 0.3s ease-out forwards;
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.accordion-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 6px 0 12px 0;
+}
+
+.sub-btn {
+    text-decoration: none;
+    color: var(--muted);
+    padding: 15px 20px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.04);
+    transition: all .25s ease;
+    font-weight: 400;
+    font-size: .92rem;
+    text-align: left;
+    display: block;
+}
+
+.sub-btn:hover {
+    color: var(--text);
+    background: rgba(56,189,248,0.06);
+    border-color: rgba(56,189,248,0.2);
+    transform: translateX(4px);
+}
+
+/* İç İçe Akordeon (Milli Eğitim Bakanlığı için) */
+
+.nested-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text);
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    font-family: inherit;
+    outline: none;
+}
+
+.nested-inner {
+    padding: 6px 0 0 12px;
+    gap: 8px;
+}
+
+.nested-link {
+    padding: 12px 18px;
+    font-size: 0.88rem;
+    border-left: 2px solid rgba(56,189,248,0.3);
+    border-radius: 0 12px 12px 0;
+    background: transparent;
+}
+
+.nested-link:hover {
+    border-left-color: var(--accent);
+    background: rgba(56,189,248,0.05);
 }
 
 /* İletişim */
@@ -233,7 +331,6 @@ h1{
         width:110px;
         height:110px;
     }
-
 }
 
 </style>
@@ -251,17 +348,56 @@ h1{
 
     <div class="links">
 
-        <a href="https://mkemalaydin.github.io/ods/" class="btn">
+        <a href="https://mkemalaydin.github.io/ods/" target="_blank" class="btn">
             Ölçme Değerlendirme Yönetim Sistemi
         </a>
 
-        
+        <div class="accordion">
+            <button class="btn accordion-toggle">
+                <span>Ders Sunumlarım</span>
+                <svg class="chevron" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="accordion-content">
+                <div class="accordion-inner">
+                    <a href="https://ember-koi-3a7.notion.site/E-itime-Giri-3224ec0b0c7280b5bf19c8582e30d662" target="_blank" class="sub-btn">Eğitime Giriş</a>
+                    <a href="https://ember-koi-3a7.notion.site/E-itimde-l-me-ve-De-erlendirme-3274ec0b0c7280eb9922fdd97c9655e5" target="_blank" class="sub-btn">Eğitimde Ölçme ve Değerlendirme</a>
+                    <a href="https://ember-koi-3a7.notion.site/E-itimde-Ara-t-rma-Y-ntemleri-3274ec0b0c72806397b0cb44f2616730" target="_blank" class="sub-btn">Eğitimde Araştırma Yöntemleri</a>
+                    <a href="https://ember-koi-3a7.notion.site/E-itimde-Program-Geli-tirme-3274ec0b0c7280369748c8e04b832029" target="_blank" class="sub-btn">Eğitimde Program Geliştirme</a>
+                    <a href="https://ember-koi-3a7.notion.site/E-itim-Felsefesi-32c4ec0b0c7280aca559c52e386a1d38" target="_blank" class="sub-btn">Eğitim Felsefesi</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <button class="btn accordion-toggle">
+                <span>Eğitim Sunumlarım</span>
+                <svg class="chevron" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="accordion-content">
+                <div class="accordion-inner">
+                    
+                    <div class="accordion">
+                        <button class="sub-btn accordion-toggle nested-toggle">
+                            <span>Milli Eğitim Bakanlığı Yönetici<br>Yetiştirme Programı</span>
+                            <svg class="chevron" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-inner nested-inner">
+                                <a href="https://canva.link/b3ls6lh5twar17d" target="_blank" class="sub-btn nested-link">Öğretim Liderliği</a>
+                                <a href="https://canva.link/r68f7hvda043se7" target="_blank" class="sub-btn nested-link">İkiz Dönüşüm</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
     </div>
 
     <div class="contact-row">
 
-        <a href="https://web.hitit.edu.tr/mehmetkemalaydin" class="icon-btn">
+        <a href="https://web.hitit.edu.tr/mehmetkemalaydin" target="_blank" class="icon-btn">
             Akademik Profil
         </a>
 
@@ -269,11 +405,11 @@ h1{
             E-posta
         </a>
 
-        <a href="https://www.instagram.com/mehmet.kemal.aydin/" class="icon-btn">
+        <a href="https://www.instagram.com/mehmet.kemal.aydin/" target="_blank" class="icon-btn">
             Instagram
         </a>
 
-        <a href="https://scholar.google.com/citations?user=J6GeXAkAAAAJ&hl=tr&oi=ao" class="icon-btn">
+        <a href="https://scholar.google.com/citations?user=J6GeXAkAAAAJ&hl=tr&oi=ao" target="_blank" class="icon-btn">
             Google Scholar
         </a>
 
@@ -284,6 +420,17 @@ h1{
     </div>
 
 </div>
+
+<script>
+    document.querySelectorAll('.accordion-toggle').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Tıklanan akordeonun durumunu değiştir (aç/kapat)
+            const accordion = this.parentElement;
+            accordion.classList.toggle('active');
+        });
+    });
+</script>
 
 </body>
 </html>
